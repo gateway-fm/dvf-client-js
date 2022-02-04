@@ -3,6 +3,7 @@ const instance = require('./test/helpers/instance')
 const _ = require('lodash')
 
 const mockGetConf = require('./test/fixtures/getConf')
+const { generateAuthMessageForAuthVersion, formatNonceForAuthVersion } = require('dvf-utils')
 
 let dvf
 
@@ -56,6 +57,7 @@ describe('dvf.getWithdrawals', () => {
     const nonce = Date.now() / 1000 + ''
     const signature = await dvf.sign(nonce.toString(16))
     const token = 'ETH'
+    const address = '0x49e4d1e2aa7d026188251392dd2d335c176d846d8a894a8092c835f3b345e2ad'
 
     const apiResponse = [
       {
@@ -85,7 +87,7 @@ describe('dvf.getWithdrawals', () => {
       .post('/v1/trading/r/getPendingWithdrawals', payloadValidator)
       .reply(200, apiResponse)
 
-    const result = await dvf.getWithdrawals(token, nonce, signature)
+    const result = await dvf.getWithdrawals(token, address, nonce, signature)
 
     expect(payloadValidator).toBeCalled()
     expect(result).toEqual(apiResponse)
