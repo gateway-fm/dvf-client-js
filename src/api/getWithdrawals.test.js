@@ -3,7 +3,6 @@ const instance = require('./test/helpers/instance')
 const _ = require('lodash')
 
 const mockGetConf = require('./test/fixtures/getConf')
-const { generateAuthMessageForAuthVersion, formatNonceForAuthVersion } = require('dvf-utils')
 
 let dvf
 
